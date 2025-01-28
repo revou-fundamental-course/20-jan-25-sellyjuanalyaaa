@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator Diagnostic</title>
+    <link rel="icon" type="image/png" href="bmi.png">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-brand" style="display: flex; align-items: center; gap: 10px;">
+              <img src="bmi.png" alt="BMI Calculator" style="width: 40px; height: 40px;">
+              <a href="#" style="font-size: 1.5em; color: #343A40; font-weight: bold; text-decoration: none;">BMI Calculator</a>
+            </div>
+          <button class="navbar-toggle" id="navbarToggle">
+              ☰
+            </button>
+            <ul class="navbar-links" id="navbarLinks">
+              <li><a href="#bmi-form">Hitung BMI</a></li>
+              <li><a href="#bmi-result">Hasil BMI</a></li>
+              <li><a href="#tentang">Tentang</a></li>
+            </ul>
+            <button id="theme-switch">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+            </button>
+          </nav>
+      </header>
+    
+      <section id="home">
+        <div id="home-container" class="scroll-animation fade-in">
+          <div class="home-left">
+            <h1>Body Mass Index Calculator</h1>
+            <p>
+              Berat badan ideal adalah impian semua orang. Tidak hanya memiliki tubuh yang menunjang penampilan, berat badan ideal juga menandakan kondisi tubuh yang sehat.
+              <br><br> Bagaimana Denganmu?<br>Yuk, hitung sekarang menggunakan kalkulator BMI
+            </p>
+            <button id="startButton" onclick="window.location.href='#bmi-form'; window.scrollTo({top: document.querySelector('#bmi-form').offsetTop - 50, behavior: 'smooth'})">Hitung Sekarang</button>
+          </div>
+          <div class="home-right">
+            <img src="icon.svg" alt="BMI Icon">
+          </div>
+        </div>
+      </section>
+      
+
+    <section id="bmi-title" class="fade-in">
+      <h1>Kalkulator BMI</h1>
+    </section>
+      <main>
+        <!-- Form Input BMI -->
+        <section id="bmi-form" class="scroll-animation">
+          <h2>Hitung BMI Anda</h2>
+          <form id="bmiCalculator">
+            <!-- Jenis Kelamin -->
+            <label for="gender">Jenis Kelamin:</label>
+            <select id="gender" required>
+              <option value="" disabled selected>Pilih...</option>
+              <option value="male">Laki-Laki</option>
+              <option value="female">Wanita</option>
+            </select>
+        
+            <!-- Umur -->
+            <label for="age">Umur (tahun):</label>
+            <input 
+              type="number" 
+              id="age" 
+              min="1" 
+              max="100" 
+              required 
+              placeholder="Contoh: 25"
+              oninvalid="this.setCustomValidity('Umur harus antara 1 hingga 100 tahun.')"
+              oninput="this.setCustomValidity('')"
+            >
+        
+            <!-- Tinggi Badan -->
+            <label for="height">Tinggi Badan (cm):</label>
+            <input 
+              type="number" 
+              id="height" 
+              min="1" 
+              max="200" 
+              required 
+              placeholder="Contoh: 170"
+              oninvalid="this.setCustomValidity('Tinggi badan harus antara 1 hingga 200 cm.')"
+              oninput="this.setCustomValidity('')"
+            >
+        
+            <!-- Berat Badan -->
+            <label for="weight">Berat Badan (kg):</label>
+            <input 
+              type="number" 
+              id="weight" 
+              min="1" 
+              max="200" 
+              required 
+              placeholder="Contoh: 65"
+              oninvalid="this.setCustomValidity('Berat badan harus antara 1 hingga 200 kg.')"
+              oninput="this.setCustomValidity('')"
+            >
+        
+            <!-- Tombol -->
+            <button type="submit">Hitung BMI</button>
+            <button type="button" id="resetBtn">Reset</button>
+          </form>
+        
+          <div id="error-message" style="color: red; margin-top: 10px;"></div>        
+        </section>
+    
+        <!-- Hasil BMI -->
+        <section id="bmi-result" class="fade-in">
+          <h2>Hasil BMI Anda</h2>
+          <p id="result"></p>
+          <p id="explanation"></p>
+    
+          <!-- Grafik BMI -->
+          <div id="bmi-graph">
+            <div id="indicator"></div>
+          </div>
+          <div id="bmi-scale">
+            <span>Kurus</span>
+            <span>Normal</span>
+            <span>Overweight</span>
+            <span>Obesitas</span>
+          </div>
+            <!-- Penjelasan Tambahan -->
+          <div id="bmi-info">
+            <h3 id="status-title"></h3>
+            <p id="status-description"></p>
+            <p><br><strong>Risiko Kesehatan:</strong> <span id="health-risks"></span></p>
+          </div>
+        </section>
+        <p id="disclaimer" style="font-size: 0.9em; color: gray; margin-top: 10px; line-height: 1.5; text-align: justify;"></p>
+      </main>
+        <div id="tentang" class="fade-in">
+          <div id="tentang-title">
+          <h2>Tentang BMI Calculator</h2>
+          <p>Keunggulan fitur
+              <ol style="color: #0074c2; margin-left: 20px;">
+                <li>Menghitung berat badan</li>
+                <li>Menentukan kategori berat badan ideal atau tidak</li>
+                <li>Mempersiapkan program penurunan berat badan</li>
+              </ol>
+          </p>
+          <br>
+          <p style="text-align: justify;">Perhatian: ini hanya boleh digunakan oleh orang dewasa (wanita hamil atau menyusui tidak boleh mengandalkan pembacaan BMI ini) dan tidak ada tindakan yang harus diambil berdasarkan nilainya selain berkonsultasi dengan orang yang memenuhi syarat seperti dokter.
+            Kalkulator akan memberi Anda gambaran tentang perbandingan berat badan Anda dengan nilai umum. Indeks Massa Tubuh (atau BMI) dihitung sebagai berat badan Anda (dalam kilogram) dibagi dengan kuadrat tinggi badan Anda (dalam meter) atau BMI = Kg/M².</p>
+          </div>
+          <div id="tentang-content" class="fade-in">
+            <table class="bmi-table">
+              <thead>
+                  <tr>
+                      <th>BMI</th>
+                      <th>Status Berat Badan</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr class="underweight">
+                      <td>Kurang dari 18.5</td>
+                      <td>Kekurangan berat badan</td>
+                  </tr>
+                  <tr class="normal">
+                      <td>18.5 – 24.9</td>
+                      <td>Normal (ideal)</td>
+                  </tr>
+                  <tr class="overweight">
+                      <td>25.0 – 29.9</td>
+                      <td>Kelebihan berat badan</td>
+                  </tr>
+                  <tr class="obesity">
+                      <td>30.0 atau lebih</td>
+                      <td>Kegemukan (Obesitas)</td>
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+        </div>
+
+      <!-- footer -->
+      <footer style="background-color: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #ddd;">
+      <p style="margin: 0; font-size: 0.9em; color: #6c757d;">&copy; 2024 BMI Calculator Diagnostic. All Rights Reserved.</p>
+      <p style="margin: 0; font-size: 0.9em; color: #6c757d;">
+        Created by <a href="https://github.com/sellyjuanalyaaa" style="color: #007bff; text-decoration: none;">Sellyjuan Alya Rosalina</a>
+      </p>
+    </footer>
+
+      <script src="js/script.js"></script>
+</body>
+</html>
+
+
